@@ -497,14 +497,6 @@
   return JSON.parse(raw);
 }
 
-      if (!response.ok) {
-        const text = await response.text().catch(() => '');
-        throw new Error(text || 'שרת הסוכן לא זמין כרגע. עברו למצב הדגמה או חברו endpoint אמיתי.');
-      }
-
-      return response.json();
-    }
-
     function fileToDataUrl(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
