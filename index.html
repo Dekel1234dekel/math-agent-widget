@@ -479,15 +479,23 @@
       };
     }
 
-    async function getAgentReplyFromApi(history) {
-      // מחליפים את ה-URL בשרת שלכם.
-      // דוגמה: https://your-vercel-project.vercel.app/api/math-agent
-      const endpoint = window.MATH_AGENT_API_URL || '/api/math-agent';
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ history })
-      });
+ async function getAgentReplyFromApi(history) {
+  const endpoint = '/api/math-agent';
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ history: history })
+  });
+
+  const raw = await response.text();
+
+  if (!response.ok) {
+    throw new Error(raw || 'שגיאת שרת');
+  }
+
+  return JSON.parse(raw);
+}
 
       if (!response.ok) {
         const text = await response.text().catch(() => '');
