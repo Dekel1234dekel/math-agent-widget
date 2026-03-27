@@ -345,8 +345,10 @@
 console.log("API RESPONSE:", data);
 
 const text =
+  data.output_text ||
   data.output?.[0]?.content?.[0]?.text ||
   "לא התקבלה תשובה";
+      
       if (!response.ok) {
         throw new Error(data.text || "שגיאה בשרת");
       }
